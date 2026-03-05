@@ -156,7 +156,7 @@ Newt MCP tools return **deterministic runbooks** for execution in your agentic I
 
 ```mermaid
 graph TD
-    A[/review command] --> B[review-orchestrator]
+    A["/review command"] --> B[review-orchestrator]
     B --> C[architecture-analyst]
     B --> D[security-auditor] 
     B --> E[performance-analyzer]
