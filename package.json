@@ -1,0 +1,39 @@
+{
+  "name": "newt",
+  "version": "1.1.0",
+  "description": "Comprehensive AI development assistant plugin for Claude Code, Windsurf, and Cursor",
+  "main": "index.js",
+  "scripts": {
+    "validate": "node scripts/validate-plugin.js",
+    "validate:config": "node scripts/config-validator.js",
+    "mcp:server": "node mcp/server.mjs",
+    "install:hooks": "bash scripts/install-hooks.sh",
+    "test": "echo \"Error: no test runner configured\" && exit 1",
+    "test:unit": "echo \"Unit tests not yet implemented\"",
+    "test:integration": "echo \"Integration tests not yet implemented\"",
+    "test:e2e": "echo \"E2E tests not yet implemented\""
+  },
+  "keywords": [
+    "claude-code",
+    "windsurf",
+    "cursor",
+    "code-review",
+    "ai-assistant",
+    "architecture",
+    "security",
+    "performance",
+    "brainstorming",
+    "pr-review"
+  ],
+  "author": "Claude Code Plugin Developer",
+  "license": "MIT",
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

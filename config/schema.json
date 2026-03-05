@@ -1,0 +1,310 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Dev Quality Assistant Configuration Schema",
+  "description": "Schema for validating Newt configuration files",
+  "type": "object",
+  "properties": {
+    "thresholds": {
+      "type": "object",
+      "properties": {
+        "lines_of_code": {
+          "type": "object",
+          "patternProperties": {
+            "^(typescript|javascript|python|java|csharp|ruby|go)$": {
+              "type": "integer",
+              "minimum": 50,
+              "maximum": 1000
+            }
+          }
+        },
+        "public_methods": {
+          "type": "object",
+          "patternProperties": {
+            "^(typescript|javascript|python|java|csharp|ruby|go)$": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 50
+            }
+          }
+        },
+        "cyclomatic_complexity": {
+          "type": "object",
+          "patternProperties": {
+            "^(typescript|javascript|python|java|csharp|ruby|go)$": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20
+            }
+          }
+        },
+        "fan_in_out": {
+          "type": "object",
+          "properties": {
+            "high_fan_in": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 20
+            },
+            "high_fan_out": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 15
+            }
+          }
+        }
+      }
+    },
+    "architecture": {
+      "type": "object",
+      "properties": {
+        "patterns": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-z_]+$": {
+              "type": "object",
+              "properties": {
+                "layers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "allowed_dependencies": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z_]+ <- [a-z_]+$"
+                  }
+                }
+              },
+              "required": ["layers", "allowed_dependencies"]
+            }
+          }
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "properties": {
+        "owasp_mapping": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-z_]+$": {
+              "type": "string"
+            }
+          }
+        },
+        "severity_weights": {
+          "type": "object",
+          "properties": {
+            "critical": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "high": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "medium": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "low": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            }
+          },
+          "required": ["critical", "high", "medium", "low"]
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "properties": {
+        "budgets": {
+          "type": "object",
+          "properties": {
+            "max_analysis_time_seconds": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 300
+            },
+            "max_memory_usage_mb": {
+              "type": "integer",
+              "minimum": 64,
+              "maximum": 2048
+            },
+            "max_cpu_usage_percent": {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 100
+            }
+          },
+          "required": ["max_analysis_time_seconds", "max_memory_usage_mb", "max_cpu_usage_percent"]
+        },
+        "complexity_limits": {
+          "type": "object",
+          "properties": {
+            "max_nesting_depth": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 10
+            },
+            "max_loop_complexity": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "max_function_length": {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 200
+            }
+          },
+          "required": ["max_nesting_depth", "max_loop_complexity", "max_function_length"]
+        }
+      }
+    },
+    "orchestration": {
+      "type": "object",
+      "properties": {
+        "parallel_agents": {
+          "type": "boolean"
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 30,
+          "maximum": 600
+        },
+        "retry_attempts": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "cache_results": {
+          "type": "boolean"
+        },
+        "cache_ttl_hours": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 168
+        }
+      }
+    },
+    "logging": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["debug", "info", "warn", "error"]
+        },
+        "structured": {
+          "type": "boolean"
+        },
+        "include_correlation_ids": {
+          "type": "boolean"
+        },
+        "retention_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 365
+        },
+        "max_file_size_mb": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 1000
+        }
+      }
+    },
+    "integrations": {
+      "type": "object",
+      "properties": {
+        "github": {
+          "type": "object",
+          "properties": {
+            "enabled": {"type": "boolean"},
+            "auto_comment": {"type": "boolean"},
+            "block_merge_on_critical": {"type": "boolean"}
+          }
+        },
+        "jira": {
+          "type": "object",
+          "properties": {
+            "enabled": {"type": "boolean"},
+            "auto_create_issues": {"type": "boolean"},
+            "project_key": {
+              "type": "string",
+              "pattern": "^[A-Z][A-Z0-9_]*$"
+            }
+          }
+        },
+        "slack": {
+          "type": "object",
+          "properties": {
+            "enabled": {"type": "boolean"},
+            "webhook_url": {"type": "string"},
+            "channel": {
+              "type": "string",
+              "pattern": "^#.*$"
+            }
+          }
+        }
+      }
+    },
+    "frontend_design": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "detection": {
+          "type": "object",
+          "properties": {
+            "framework": { "type": "string" },
+            "style_system": { "type": "string" },
+            "component_library": { "type": "string" }
+          }
+        },
+        "accessibility": {
+          "type": "object",
+          "properties": {
+            "wcag_level": { "type": "string", "enum": ["A", "AA", "AAA"] },
+            "contrast_ratio": { "type": "number", "minimum": 3, "maximum": 21 },
+            "keyboard_navigation": { "type": "boolean" },
+            "reduced_motion": { "type": "boolean" }
+          }
+        },
+        "responsive": {
+          "type": "object",
+          "properties": {
+            "breakpoints": {
+              "type": "object",
+              "properties": {
+                "mobile": { "type": "string" },
+                "tablet": { "type": "string" },
+                "desktop": { "type": "string" },
+                "wide": { "type": "string" }
+              }
+            },
+            "touch_target_min_px": { "type": "integer", "minimum": 24, "maximum": 80 }
+          }
+        },
+        "performance": {
+          "type": "object",
+          "properties": {
+            "core_web_vitals_budgets": {
+              "type": "object",
+              "properties": {
+                "lcp_ms": { "type": "integer", "minimum": 500, "maximum": 10000 },
+                "inp_ms": { "type": "integer", "minimum": 50, "maximum": 2000 },
+                "cls": { "type": "number", "minimum": 0, "maximum": 1 }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

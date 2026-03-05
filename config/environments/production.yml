@@ -1,0 +1,74 @@
+# Production Environment Configuration
+# Overrides default.yml for production deployments
+
+# Stricter thresholds for production
+thresholds:
+  lines_of_code:
+    typescript: 300
+    javascript: 250
+    python: 200
+    java: 400
+    csharp: 350
+    ruby: 150
+    go: 300
+  public_methods:
+    typescript: 15
+    javascript: 13
+    python: 10
+    java: 20
+    csharp: 17
+    ruby: 7
+    go: 15
+  cyclomatic_complexity:
+    typescript: 8
+    javascript: 8
+    python: 6
+    java: 10
+    csharp: 9
+    ruby: 5
+    go: 8
+
+# Strict performance budgets for production
+performance:
+  budgets:
+    max_analysis_time_seconds: 15
+    max_memory_usage_mb: 256
+    max_cpu_usage_percent: 70
+  complexity_limits:
+    max_nesting_depth: 4
+    max_loop_complexity: 2
+    max_function_length: 40
+
+# Production logging with security considerations
+logging:
+  level: "warn"
+  structured: true
+  include_correlation_ids: true
+  retention_days: 90
+  max_file_size_mb: 200
+  redact_secrets: true
+  audit_trail: true
+
+# Production integrations enabled
+integrations:
+  github:
+    enabled: true
+    auto_comment: true
+    block_merge_on_critical: true
+  jira:
+    enabled: true
+    auto_create_issues: true
+    project_key: "PROD"
+  slack:
+    enabled: true
+    webhook_url: "${SLACK_WEBHOOK_URL}"
+    channel: "#prod-quality"
+
+# Production-specific features
+features:
+  enable_experimental_agents: false
+  enable_ml_predictions: true
+  enable_advanced_metrics: true
+  enable_cache_busting: false
+  enable_compliance_reporting: true
+  enable_sla_monitoring: true

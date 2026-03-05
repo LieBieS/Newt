@@ -1,0 +1,17 @@
+/* Test fixture: layout with CLS risks */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.hero img {
+  width: 100%;
+  height: auto;
+}
+
+.card {
+  padding: 10px;
+  border-radius: 3px;
+}

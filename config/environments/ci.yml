@@ -1,0 +1,84 @@
+# CI/CD Environment Configuration
+# Optimized for automated pipeline execution
+
+# Balanced thresholds for CI environments
+thresholds:
+  lines_of_code:
+    typescript: 350
+    javascript: 300
+    python: 250
+    java: 450
+    csharp: 400
+    ruby: 200
+    go: 350
+  public_methods:
+    typescript: 18
+    javascript: 16
+    python: 13
+    java: 23
+    csharp: 20
+    ruby: 10
+    go: 18
+  cyclomatic_complexity:
+    typescript: 10
+    javascript: 10
+    python: 8
+    java: 12
+    csharp: 11
+    ruby: 7
+    go: 10
+
+# Performance optimized for CI
+performance:
+  budgets:
+    max_analysis_time_seconds: 45
+    max_memory_usage_mb: 768
+    max_cpu_usage_percent: 85
+  complexity_limits:
+    max_nesting_depth: 5
+    max_loop_complexity: 3
+    max_function_length: 50
+
+# CI logging optimized for pipeline consumption
+logging:
+  level: "info"
+  structured: true
+  include_correlation_ids: true
+  retention_days: 30
+  max_file_size_mb: 150
+  pipeline_format: true
+  exit_code_on_failure: true
+
+# CI-specific integrations
+integrations:
+  github:
+    enabled: true
+    auto_comment: true
+    block_merge_on_critical: true
+    pr_annotations: true
+  jira:
+    enabled: false
+    auto_create_issues: false
+    project_key: "CI"
+  slack:
+    enabled: false
+    webhook_url: ""
+    channel: ""
+
+# CI-specific features
+features:
+  enable_experimental_agents: false
+  enable_ml_predictions: false
+  enable_advanced_metrics: true
+  enable_cache_busting: false
+  enable_quality_gates: true
+  enable_exit_codes: true
+  enable_artifact_reporting: true
+
+# Pipeline configuration
+pipeline:
+  fail_fast_on_critical: true
+  generate_reports: true
+  upload_artifacts: true
+  cache_dependencies: true
+  parallel_execution: true

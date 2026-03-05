@@ -1,0 +1,247 @@
+# Default Configuration for Newt
+# This file contains all configurable thresholds and patterns
+
+# Metric thresholds per language
+thresholds:
+  lines_of_code:
+    typescript: 400
+    javascript: 350
+    python: 300
+    java: 500
+    csharp: 450
+    ruby: 250
+    go: 400
+  public_methods:
+    typescript: 20
+    javascript: 18
+    python: 15
+    java: 25
+    csharp: 22
+    ruby: 12
+    go: 20
+  cyclomatic_complexity:
+    typescript: 10
+    javascript: 10
+    python: 8
+    java: 12
+    csharp: 11
+    ruby: 7
+    go: 10
+  fan_in_out:
+    high_fan_in: 10
+    high_fan_out: 8
+
+# Architecture pattern definitions
+architecture:
+  patterns:
+    clean_architecture:
+      layers: ["domain", "application", "infrastructure", "presentation"]
+      allowed_dependencies:
+        - "domain <- application"
+        - "domain <- infrastructure"
+        - "application <- presentation"
+        - "infrastructure <- presentation"
+    hexagonal_architecture:
+      layers: ["domain", "application", "adapters", "ports"]
+      allowed_dependencies:
+        - "domain <- application"
+        - "application <- adapters"
+        - "ports <- adapters"
+    layered_architecture:
+      layers: ["presentation", "business", "persistence", "database"]
+      allowed_dependencies:
+        - "persistence <- business"
+        - "business <- presentation"
+        - "database <- persistence"
+    modular_monolith:
+      modules: ["shared", "core", "features"]
+      allowed_dependencies:
+        - "shared <- core"
+        - "shared <- features"
+        - "core <- features"
+    microservices:
+      services: ["api-gateway", "auth", "orders", "payments", "notifications"]
+      allowed_dependencies:
+        - "auth <- api-gateway"
+        - "orders <- api-gateway"
+        - "payments <- orders"
+        - "notifications <- orders"
+        - "notifications <- payments"
+
+# Security rule sets
+security:
+  owasp_mapping:
+    injection: "A03:2021 – Injection"
+    broken_authentication: "A07:2021 – Identification and Authentication Failures"
+    sensitive_data: "A02:2021 – Cryptographic Failures"
+    xml_external_entities: "A05:2021 – Security Misconfiguration"
+    broken_access_control: "A01:2021 – Broken Access Control"
+    security_misconfiguration: "A05:2021 – Security Misconfiguration"
+    xss: "A03:2021 – Injection"
+    insecure_deserialization: "A08:2021 – Software and Data Integrity Failures"
+    components_with_vulnerabilities: "A06:2021 – Vulnerable and Outdated Components"
+    insufficient_logging: "A09:2021 – Security Logging and Monitoring Failures"
+  
+  severity_weights:
+    critical: 10
+    high: 7
+    medium: 4
+    low: 1
+
+# Performance budgets
+performance:
+  budgets:
+    max_analysis_time_seconds: 30
+    max_memory_usage_mb: 512
+    max_cpu_usage_percent: 80
+  complexity_limits:
+    max_nesting_depth: 5
+    max_loop_complexity: 3
+    max_function_length: 50
+
+# Review orchestration
+orchestration:
+  parallel_agents: true
+  timeout_seconds: 120
+  retry_attempts: 3
+  cache_results: true
+  cache_ttl_hours: 24
+
+# Logging configuration
+logging:
+  level: "info"
+  structured: true
+  include_correlation_ids: true
+  retention_days: 30
+  max_file_size_mb: 100
+
+# Integration settings
+integrations:
+  github:
+    enabled: false
+    auto_comment: true
+    block_merge_on_critical: true
+  jira:
+    enabled: false
+    auto_create_issues: true
+    project_key: "DEV"
+  slack:
+    enabled: false
+    webhook_url: ""
+    channel: "#dev-quality"
+
+# PR Review policies
+review_policies:
+  commit_blocking:
+    critical_vulnerabilities: true
+    security_issues: true
+    performance_regressions: false
+    architecture_violations: true
+  
+  pr_size_limits:
+    max_commits: 50
+    max_files_changed: 100
+    max_lines_added: 5000
+    suggest_split_above: 30 commits
+  
+  reviewer_assignment:
+    security_experts: ["@security-team"]
+    architecture_experts: ["@architects"]
+    performance_experts: ["@perf-team"]
+    backend_experts: ["@backend-team"]
+    frontend_experts: ["@frontend-team"]
+
+# Communication settings
+communication:
+  tone: "professional"
+  audience: "mixed"
+  templates_path: "templates/communication"
+  education_enabled: true
+  conflict_resolution_enabled: true
+
+# Risk assessment thresholds
+risk_assessment:
+  severity_weights:
+    critical: 10
+    high: 7
+    medium: 4
+    low: 1
+  impact_factors:
+    user_facing: 2.0
+    security_related: 2.5
+    performance_critical: 1.8
+    data_integrity: 2.2
+
+# Timeline planning
+timeline_planning:
+  default_review_days: 3
+  complex_feature_multiplier: 1.5
+  parallel_review_capacity: 2
+  buffer_days: 1
+
+# Brainstorming (Ideation OS) configuration
+brainstorming:
+  enabled: true
+  mode_defaults:
+    technical:
+      frameworks: ["scamper", "six_hats"]
+      min_ideas: 15
+      top_candidates: 3
+    product:
+      frameworks: ["six_hats", "mind_mapping"]
+      min_ideas: 15
+      top_candidates: 3
+    process:
+      frameworks: ["six_hats", "constraint_analysis"]
+      min_ideas: 15
+      top_candidates: 3
+    incident:
+      frameworks: ["constraint_analysis", "six_hats"]
+      min_ideas: 15
+      top_candidates: 3
+
+  scoring_weights:
+    impact: 1.0
+    feasibility: 1.0
+    risk_inverted: 1.0
+    time_to_value: 1.0
+    strategic_fit: 1.0
+
+  artifacts:
+    generate_idea_cards: true
+    generate_adr_draft: true
+    generate_experiment_brief: true
+    max_artifact_length_chars: 12000
+
+  logging:
+    enabled: true
+    path: "logs/brainstorm"
+    retention_days: 60
+
+# Frontend design (web UI/UX) configuration
+frontend_design:
+  enabled: true
+  detection:
+    framework: "auto"
+    style_system: "auto"
+    component_library: "auto"
+
+  accessibility:
+    wcag_level: "AA"
+    contrast_ratio: 4.5
+    keyboard_navigation: true
+    reduced_motion: true
+
+  responsive:
+    breakpoints:
+      mobile: "320px"
+      tablet: "768px"
+      desktop: "1024px"
+      wide: "1440px"
+    touch_target_min_px: 44
+
+  performance:
+    core_web_vitals_budgets:
+      lcp_ms: 2500
+      inp_ms: 200
+      cls: 0.1

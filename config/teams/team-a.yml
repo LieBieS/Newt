@@ -1,0 +1,96 @@
+# Team A Specific Configuration Override
+# Customizes thresholds and policies for Team A's specific needs
+
+# Team-specific threshold adjustments
+thresholds:
+  lines_of_code:
+    typescript: 450  # Team A works with larger components
+    javascript: 400
+    python: 350
+    java: 550
+    csharp: 500
+    ruby: 300
+    go: 450
+  public_methods:
+    typescript: 22  # Team A prefers more methods per class
+    javascript: 20
+    python: 17
+    java: 27
+    csharp: 24
+    ruby: 14
+    go: 22
+  cyclomatic_complexity:
+    typescript: 12  # Team A accepts slightly higher complexity
+    javascript: 12
+    python: 10
+    java: 14
+    csharp: 13
+    ruby: 8
+    go: 12
+
+# Team A specific architecture patterns
+architecture:
+  custom_patterns:
+    team_a_microservice:
+      layers: ["api", "service", "repository", "model"]
+      allowed_dependencies:
+        - "repository <- service"
+        - "model <- repository"
+        - "service <- api"
+      description: "Team A's standard microservice pattern"
+
+# Team-specific security policies
+security:
+  custom_rules:
+    team_a_api_key_validation:
+      pattern: "api_key|apikey"
+      severity: "high"
+      description: "Team A requires API key validation"
+    team_a_input_sanitization:
+      pattern: "sanitize|clean_input"
+      severity: "medium"
+      description: "Team A input sanitization requirements"
+
+# Team A performance requirements
+performance:
+  budgets:
+    max_analysis_time_seconds: 25  # Team A has larger codebases
+    max_memory_usage_mb: 384
+    max_cpu_usage_percent: 75
+  custom_metrics:
+    team_a_response_time:
+      threshold: 200  # milliseconds
+      description: "Team A response time SLA"
+
+# Team A integrations
+integrations:
+  github:
+    enabled: true
+    auto_comment: true
+    block_merge_on_critical: true
+    team_specific_labels: ["team-a", "backend"]
+  jira:
+    enabled: true
+    auto_create_issues: true
+    project_key: "TEAMA"
+    components: ["backend", "api", "database"]
+  slack:
+    enabled: true
+    webhook_url: "${TEAM_A_SLACK_WEBHOOK}"
+    channel: "#team-a-quality"
+
+# Team A specific features
+features:
+  enable_experimental_agents: false
+  enable_ml_predictions: true
+  enable_advanced_metrics: true
+  enable_cache_busting: false
+  enable_team_reporting: true
+  enable_custom_dashboards: true
+
+# Team A compliance requirements
+compliance:
+  frameworks: ["SOC2", "GDPR"]
+  data_classification: "confidential"
+  audit_frequency: "weekly"
+  retention_policy: "1_year"

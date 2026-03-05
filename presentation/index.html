@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newt: AI Development Assistant - Stats Overview</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="presentation">
+        <div class="slide active" id="slide-1">
+            <div class="stats-grid">
+                <div class="stat-card primary">
+                    <span class="number" data-target="13">0</span>
+                    <span class="unit"></span>
+                    <span class="label">agents</span>
+                </div>
+                <div class="stat-card success">
+                    <span class="number" data-target="15">0</span>
+                    <span class="unit"></span>
+                    <span class="label">skills</span>
+                </div>
+                <div class="stat-card warning">
+                    <span class="number" data-target="6">0</span>
+                    <span class="unit"></span>
+                    <span class="label">MCP tools</span>
+                </div>
+                <div class="stat-card info">
+                    <span class="number" data-target="3">0</span>
+                    <span class="unit"></span>
+                    <span class="label">git hooks</span>
+                </div>
+                <div class="stat-card enterprise">
+                    <span class="number" data-target="5">0</span>
+                    <span class="unit"></span>
+                    <span class="label">rule sets</span>
+                </div>
+            </div>
+            <h1 class="slide-title">Newt by the Numbers</h1>
+        </div>
+
+        <div class="slide" id="slide-2">
+            <h2 class="slide-header">Agents & Their Purpose</h2>
+            <div class="agents-grid">
+                <div class="agent-category">
+                    <h3>Review Agents</h3>
+                    <div class="agent-list">
+                        <div class="agent-item">
+                            <span class="agent-name">review-orchestrator</span>
+                            <span class="agent-purpose">Coordinates all review operations</span>
+                        </div>
+                        <div class="agent-item">
+                            <span class="agent-name">architecture-analyst</span>
+                            <span class="agent-purpose">Analyzes code architecture patterns</span>
+                        </div>
+                        <div class="agent-item">
+                            <span class="agent-name">security-auditor</span>
+                            <span class="agent-purpose">Performs security vulnerability scans</span>
+                        </div>
+                        <div class="agent-item">
+                            <span class="agent-name">performance-analyzer</span>
+                            <span class="agent-purpose">Analyzes performance bottlenecks</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="agent-category">
+                    <h3>PR Agents</h3>
+                    <div class="agent-list">
+                        <div class="agent-item">
+                            <span class="agent-name">pr-review-agent</span>
+                            <span class="agent-purpose">Reviews pull requests automatically</span>
+                        </div>
+                        <div class="agent-item">
+                            <span class="agent-name">pr-planning-agent</span>
+                            <span class="agent-purpose">Plans commit strategies</span>
+                        </div>
+                        <div class="agent-item">
+                            <span class="agent-name">pr-communication-agent</span>
+                            <span class="agent-purpose">Generates PR descriptions</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="agent-category">
+                    <h3>Brainstorming Agents</h3>
+                    <div class="agent-list">
+                        <div class="agent-item">
+                            <span class="agent-name">brainstorming-agent</span>
+                            <span class="agent-purpose">Facilitates ideation sessions</span>
+                        </div>
+                        <div class="agent-item">
+                            <span class="agent-name">creative-pattern-agent</span>
+                            <span class="agent-purpose">Finds creative solution patterns</span>
+                        </div>
+                        <div class="agent-item">
+                            <span class="agent-name">constraint-analysis-agent</span>
+                            <span class="agent-purpose">Analyzes project constraints</span>
+                        </div>
+                        <div class="agent-item">
+                            <span class="agent-name">convergence-agent</span>
+                            <span class="agent-purpose">Converges on best solutions</span>
+                        </div>
+                        <div class="agent-item">
+                            <span class="agent-name">experiment-designer-agent</span>
+                            <span class="agent-purpose">Designs controlled experiments</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="agent-category">
+                    <h3>Frontend Agent</h3>
+                    <div class="agent-list">
+                        <div class="agent-item">
+                            <span class="agent-name">frontend-design-agent</span>
+                            <span class="agent-purpose">Designs UI/UX components</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-3">
+            <h2 class="slide-header">Skills & Their Functions</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Code Quality Skills</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <span class="skill-name">detect-god-class</span>
+                            <span class="skill-function">Identifies oversized classes</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">detect-circular-deps</span>
+                            <span class="skill-function">Finds circular dependencies</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">detect-sql-injection</span>
+                            <span class="skill-function">Detects SQL injection risks</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">dependency-audit</span>
+                            <span class="skill-function">Audits dependency security</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>PR Skills</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <span class="skill-name">live-suggestions</span>
+                            <span class="skill-function">Real-time code suggestions</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">commit-planning</span>
+                            <span class="skill-function">Plans optimal commits</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">pr-splitting</span>
+                            <span class="skill-function">Splits large PRs logically</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Brainstorming Skills</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <span class="skill-name">idea-backlog-curator</span>
+                            <span class="skill-function">Organizes idea backlog</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">constraint-harvester</span>
+                            <span class="skill-function">Extracts project constraints</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">idea-clusterer</span>
+                            <span class="skill-function">Groups related ideas</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Frontend Skills</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <span class="skill-name">detect-accessibility-issues</span>
+                            <span class="skill-function">Finds a11y violations</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">analyze-visual-hierarchy</span>
+                            <span class="skill-function">Analyzes visual hierarchy</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">component-consistency-checker</span>
+                            <span class="skill-function">Checks component consistency</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">responsive-breakpoint-analyzer</span>
+                            <span class="skill-function">Analyzes responsive design</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">ux-pattern-detector</span>
+                            <span class="skill-function">Detects UX patterns</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-4">
+            <h2 class="slide-header">Commands & Their Functions</h2>
+            <div class="commands-grid">
+                <div class="command-category">
+                    <h3>Core Commands</h3>
+                    <div class="command-list">
+                        <div class="command-item">
+                            <span class="command-name">/review</span>
+                            <span class="command-function">Performs comprehensive code review</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-name">/project-health</span>
+                            <span class="command-function">Assesses overall project health</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-name">/review-history</span>
+                            <span class="command-function">Shows review history trends</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-name">/architecture-check</span>
+                            <span class="command-function">Analyzes architecture patterns</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="command-category">
+                    <h3>PR Commands</h3>
+                    <div class="command-list">
+                        <div class="command-item">
+                            <span class="command-name">/pr-review</span>
+                            <span class="command-function">Reviews pull requests in 6 modes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="command-category">
+                    <h3>Brainstorming Commands</h3>
+                    <div class="command-list">
+                        <div class="command-item">
+                            <span class="command-name">/brainstorm</span>
+                            <span class="command-function">Facilitates ideation sessions</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-name">/converge</span>
+                            <span class="command-function">Converges on best solutions</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-name">/experiment-brief</span>
+                            <span class="command-function">Creates experiment briefs</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-name">/adr-draft</span>
+                            <span class="command-function">Drafts architecture decisions</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="command-category">
+                    <h3>Frontend Commands</h3>
+                    <div class="command-list">
+                        <div class="command-item">
+                            <span class="command-name">/ui-design</span>
+                            <span class="command-function">Designs UI components</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-name">/component-review</span>
+                            <span class="command-function">Reviews UI components</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-name">/accessibility-audit</span>
+                            <span class="command-function">Audits accessibility compliance</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-name">/responsive-check</span>
+                            <span class="command-function">Validates responsive design</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-name">/design-system</span>
+                            <span class="command-function">Defines design systems</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-name">/ux-pattern-review</span>
+                            <span class="command-function">Reviews UX patterns</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-5">
+            <h2 class="slide-header">MCP & Integration Details</h2>
+            <div class="integration-grid">
+                <div class="integration-category">
+                    <h3>MCP Tools</h3>
+                    <div class="integration-list">
+                        <div class="integration-item">
+                            <span class="integration-name">newt_review</span>
+                            <span class="integration-function">Generates review runbooks</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">newt_pr_review</span>
+                            <span class="integration-function">Creates PR review runbooks</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">newt_brainstorm</span>
+                            <span class="integration-function">Generates brainstorm runbooks</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">newt_converge</span>
+                            <span class="integration-function">Creates convergence runbooks</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">newt_experiment_brief</span>
+                            <span class="integration-function">Generates experiment briefs</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">newt_adr_draft</span>
+                            <span class="integration-function">Creates ADR drafts</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="integration-category">
+                    <h3>MCP Resources</h3>
+                    <div class="integration-list">
+                        <div class="integration-item">
+                            <span class="integration-name">config://default.yml</span>
+                            <span class="integration-function">Default configuration</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">config://schema.json</span>
+                            <span class="integration-function">Configuration schema</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">logs://reviews/latest</span>
+                            <span class="integration-function">Latest review logs</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">logs://brainstorm/latest</span>
+                            <span class="integration-function">Latest brainstorm logs</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">agents://list</span>
+                            <span class="integration-function">Available agents</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">skills://list</span>
+                            <span class="integration-function">Available skills</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="integration-category">
+                    <h3>Git Hooks</h3>
+                    <div class="integration-list">
+                        <div class="integration-item">
+                            <span class="integration-name">pre-commit</span>
+                            <span class="integration-function">Runs quality checks before commit</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">pre-push</span>
+                            <span class="integration-function">Validates before push</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">commit-msg</span>
+                            <span class="integration-function">Validates commit messages</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="integration-category">
+                    <h3>IDE Support</h3>
+                    <div class="integration-list">
+                        <div class="integration-item">
+                            <span class="integration-name">Claude Code</span>
+                            <span class="integration-function">Native plugin support</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">Windsurf</span>
+                            <span class="integration-function">Plugin marketplace</span>
+                        </div>
+                        <div class="integration-item">
+                            <span class="integration-name">Cursor</span>
+                            <span class="integration-function">Plugin integration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-6">
+            <h2 class="slide-header">Configuration Rules & Roadmap</h2>
+            <div class="config-grid">
+                <div class="config-category">
+                    <h3>Configuration Rules</h3>
+                    <div class="config-list">
+                        <div class="config-item">
+                            <span class="config-name">Thresholds</span>
+                            <span class="config-function">Code quality limits per language</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">Review Policies</span>
+                            <span class="config-function">Commit blocking rules</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">Brainstorming</span>
+                            <span class="config-function">Mode defaults and scoring</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">Frontend Design</span>
+                            <span class="config-function">WCAG and performance budgets</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">Integrations</span>
+                            <span class="config-function">External tool connections</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="config-category">
+                    <h3>2026 Roadmap</h3>
+                    <div class="config-list">
+                        <div class="config-item">
+                            <span class="config-name">Q2 2026</span>
+                            <span class="config-function">Testing suite with 80% coverage</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">Q3 2026</span>
+                            <span class="config-function">Enterprise features for 10 customers</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">Q4 2026</span>
+                            <span class="config-function">AI enhancement with basic ML models</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">2027</span>
+                            <span class="config-function">Platform expansion with web dashboard</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="config-category">
+                    <h3>Success Targets</h3>
+                    <div class="config-list">
+                        <div class="config-item">
+                            <span class="config-name">Enterprise Customers</span>
+                            <span class="config-function">25 customers by 2027</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">Daily Users</span>
+                            <span class="config-function">100K active users</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">Market Penetration</span>
+                            <span class="config-function">15% of AI dev tools market</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">ARR Target</span>
+                            <span class="config-function">$1M annual recurring revenue</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="config-category">
+                    <h3>Validation</h3>
+                    <div class="config-list">
+                        <div class="config-item">
+                            <span class="config-name">Schema Validation</span>
+                            <span class="config-function">JSON schema enforcement</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">Config Validator</span>
+                            <span class="config-function">Rule-based validation</span>
+                        </div>
+                        <div class="config-item">
+                            <span class="config-name">Plugin Validator</span>
+                            <span class="config-function">Structure validation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev" onclick="previousSlide()">←</button>
+            <div class="slide-indicator">
+                <span class="dot active" onclick="goToSlide(0)"></span>
+                <span class="dot" onclick="goToSlide(1)"></span>
+                <span class="dot" onclick="goToSlide(2)"></span>
+                <span class="dot" onclick="goToSlide(3)"></span>
+                <span class="dot" onclick="goToSlide(4)"></span>
+                <span class="dot" onclick="goToSlide(5)"></span>
+            </div>
+            <button class="nav-btn next" onclick="nextSlide()">→</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

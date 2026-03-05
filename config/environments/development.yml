@@ -1,0 +1,66 @@
+# Development Environment Configuration
+# Overrides default.yml for development setups
+
+# More lenient thresholds for development
+thresholds:
+  lines_of_code:
+    typescript: 500
+    javascript: 450
+    python: 400
+    java: 600
+    csharp: 550
+    ruby: 350
+    go: 500
+  public_methods:
+    typescript: 25
+    javascript: 23
+    python: 20
+    java: 30
+    csharp: 27
+    ruby: 17
+    go: 25
+  cyclomatic_complexity:
+    typescript: 15
+    javascript: 15
+    python: 12
+    java: 18
+    csharp: 16
+    ruby: 10
+    go: 15
+
+# Performance budgets relaxed for development
+performance:
+  budgets:
+    max_analysis_time_seconds: 60
+    max_memory_usage_mb: 1024
+    max_cpu_usage_percent: 90
+
+# More verbose logging for development
+logging:
+  level: "debug"
+  structured: false
+  include_correlation_ids: true
+  retention_days: 7
+  max_file_size_mb: 50
+
+# Development-specific integrations
+integrations:
+  github:
+    enabled: false
+    auto_comment: false
+    block_merge_on_critical: false
+  jira:
+    enabled: false
+    auto_create_issues: false
+    project_key: "DEV"
+  slack:
+    enabled: false
+    webhook_url: ""
+    channel: "#dev-quality"
+
+# Development features
+features:
+  enable_experimental_agents: true
+  enable_ml_predictions: false
+  enable_advanced_metrics: true
+  enable_cache_busting: true
