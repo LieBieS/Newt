@@ -1,0 +1,36 @@
+﻿{
+    "name": "newt",
+    "displayName": "Newt - AI Development Assistant",
+    "description": "AI-powered development assistant for architecture, security, performance, and quality automation",
+    "version": "1.0.0",
+    "author": "Claude Code Plugin Developer",
+    "license": "MIT",
+    "homepage": "https://github.com/your-repo/newt",
+    "keywords": [
+        "ai",
+        "code-review",
+        "security",
+        "architecture",
+        "performance",
+        "automation",
+        "claude-code",
+        "development-tools"
+    ],
+    "category": "Development Tools",
+    "icon": "🦎",
+    "engines": {
+        "claude-code": ">=1.0.0"
+    },
+    "main": "plugin.json",
+    "capabilities": [
+        "code-analysis",
+        "security-auditing",
+        "architecture-review",
+        "performance-analysis",
+        "pr-automation",
+        "brainstorming",
+        "project-health",
+        "hooks-integration",
+        "mcp-server"
+    ]
+}
