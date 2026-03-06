@@ -46,6 +46,7 @@ Named after the plucky survivor from LV-426, Newt is your reliable companion in 
 | **Architecture** | System design and flow | [🏗️ Architecture](#️-architecture) |
 | **Installation** | Detailed setup instructions | [📦 Installation](#-installation) |
 | **Configuration** | Customize Newt for your needs | [⚙️ Configuration](#️-configuration) |
+| **LSP Server** | Language Server Protocol integration | [🔌 LSP Server](#-lsp-server) |
 | **Examples** | Real-world usage scenarios | [💡 Examples](#-examples) |
 | **Troubleshooting** | Common issues and solutions | [🔧 Troubleshooting](#-troubleshooting) |
 | **Learning Hub** | Understand AI concepts (LLM, Agents, MCP, RAG) | [📚 Learning Hub](#-learning-hub) |
@@ -141,6 +142,114 @@ Newt MCP tools return **deterministic runbooks** for execution in your agentic I
 - `newt_adr_draft` - Architecture decision records
 
 📖 **See `mcp/README.md` for complete details.**
+
+---
+
+## 🔌 LSP Server (Language Server Protocol)
+
+Newt includes a **Language Server Protocol** implementation that enables real-time code analysis in **any LSP-compatible editor** — VS Code, Vim, Neovim, and more.
+
+### Why LSP?
+
+The LSP server brings Newt's intelligent analysis to your favorite editor, providing:
+- ✅ **Real-time diagnostics** - Security, architecture issues appear as you code
+- ✅ **Multi-editor support** - Works in VS Code, Vim, Neovim, and any LSP client
+- ✅ **Background analysis** - Non-blocking, doesn't interrupt your workflow
+- ✅ **Configurable depth** - Fast (quick checks) to Comprehensive (full analysis)
+- ✅ **Zero plugin installation** - Just point your editor to the LSP server
+
+### 🚀 Quick Start
+
+**Start the LSP Server:**
+```bash
+npm run lsp:server
+```
+
+Expected output:
+```
+🚀 Newt LSP Server starting...
+📡 Port: 9090
+📝 Log level: info
+✓ Server initialized and listening
+```
+
+**Configure Your Editor:**
+
+**VS Code** (coming in Phase 2):
+```json
+{
+  "newt.lsp": {
+    "command": "node",
+    "args": ["/path/to/newt/lsp/index.js"]
+  }
+}
+```
+
+**Neovim** (nvim-lspconfig):
+```lua
+require('lspconfig').newt.setup({
+  cmd = { 'node', '/path/to/newt/lsp/index.js' },
+  filetypes = { 'typescript', 'javascript', 'python' },
+  analysisDepth = 'balanced'
+})
+```
+
+**Vim** (with coc.nvim):
+```vim
+call coc#config#set_config({
+  'languageserver': {
+    'newt': {
+      'command': 'node',
+      'args': ['/path/to/newt/lsp/index.js'],
+      'filetypes': ['typescript', 'javascript', 'python']
+    }
+  }
+})
+```
+
+### ⚙️ Configuration
+
+Configure via editor settings or environment:
+
+```bash
+# Start with custom analysis depth
+npm run lsp:server -- --depth comprehensive
+
+# Enable debug logging
+npm run lsp:server -- --debug
+
+# Use custom port
+npm run lsp:server -- --port 9091
+```
+
+**Editor Settings:**
+```json
+{
+  "newt.analysisDepth": "balanced",      // fast, balanced, comprehensive
+  "newt.realTimeDiagnostics": true,      // Enable/disable real-time analysis
+  "newt.commandTimeout": 30000,          // Timeout in milliseconds
+  "newt.focusAreas": ["security", "architecture"],
+  "newt.ignorePatterns": ["node_modules/**", "dist/**"]
+}
+```
+
+### 📊 What You Get
+
+**Real-Time Diagnostics:**
+- 🔴 **Critical Issues** - SQL injection, secrets in code
+- 🟡 **Warnings** - Code smells, potential problems
+- 🔵 **Info** - Architecture suggestions, patterns
+
+**Diagnostic Sources:**
+- `newt-security` - Security vulnerabilities
+- `newt-architecture` - Architecture patterns and issues
+- `newt-performance` - Performance bottlenecks (Phase 2)
+- `newt-quality` - Code quality metrics (Phase 2)
+
+### 📚 Learn More
+
+For detailed setup, configuration, and troubleshooting:
+📖 **See [`docs/lsp-tutorial.md`](docs/lsp-tutorial.md) for complete LSP guide.**
 
 ---
 
