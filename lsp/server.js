@@ -13,6 +13,10 @@ const {
 } = require('vscode-languageserver');
 
 const { TextDocument } = require('vscode-languageserver-textdocument');
+const Config = require('./config');
+const FileMonitor = require('./file-monitor');
+const AsyncCoordinator = require('./async-coordinator');
+const DiagnosticsBuilder = require('./diagnostics-builder');
 
 // Create connection for Node IPC (or mocked for testing)
 let connection;
@@ -47,6 +51,15 @@ let globalSettings = {
   commandTimeout: 30000,
 };
 
+// Initialize components
+const config = new Config().load();
+const asyncCoordinator = new AsyncCoordinator(connection, config);
+const fileMonitor = new FileMonitor(connection, documents, asyncCoordinator, config);
+const diagnosticsBuilder = new DiagnosticsBuilder();
+
+// Track diagnostics per file
+const fileDiagnostics = new Map();
+
 // Initialize handler
 connection.onInitialize((params) => {
   const capabilities = {
@@ -70,14 +83,46 @@ connection.onInitialized(() => {
   if (connection.console && connection.console.log) {
     connection.console.log('Newt LSP server initialized');
   }
+  // Start monitoring files
+  fileMonitor.start();
 });
+
+// Mock agent adapter (will be replaced with real agents in Task 7)
+const mockAgents = {
+  analyzeSecurityAndArchitecture: async (uri, content, options) => {
+    // Mock: return empty results for now
+    return {
+      security: [],
+      architecture: [],
+    };
+  },
+};
+
+asyncCoordinator.agents = mockAgents;
+
+// Set up task completion callback to publish diagnostics
+asyncCoordinator.onTaskComplete = async (task, results) => {
+  if (results) {
+    const diagnostics = diagnosticsBuilder.mergeResults(
+      results.security,
+      results.architecture
+    );
+
+    connection.sendDiagnostics({
+      uri: task.uri,
+      diagnostics,
+    });
+
+    fileDiagnostics.set(task.uri, diagnostics);
+  }
+};
 
 // Document open handler
 documents.onDidOpen((event) => {
   if (connection.console && connection.console.log) {
     connection.console.log(`Document opened: ${event.document.uri}`);
   }
-  // TODO: Trigger initial diagnostics
+  // Handled by FileMonitor via fileMonitor.start()
 });
 
 // Document change handler
@@ -89,7 +134,7 @@ documents.onDidChangeContent((event) => {
     if (connection.console && connection.console.log) {
       connection.console.log(`Document changed: ${event.document.uri}`);
     }
-    // TODO: Trigger diagnostics on change
+    // Handled by FileMonitor via fileMonitor.start()
   }, 500);
 });
 
@@ -98,7 +143,7 @@ documents.onDidSave((event) => {
   if (connection.console && connection.console.log) {
     connection.console.log(`Document saved: ${event.document.uri}`);
   }
-  // TODO: Trigger diagnostics on save
+  // Handled by FileMonitor via fileMonitor.start()
 });
 
 // Settings change handler
@@ -122,4 +167,12 @@ if (typeof jest === 'undefined' && process.env.NODE_ENV !== 'test') {
   startServer();
 }
 
-module.exports = { connection, documents, globalSettings };
+module.exports = {
+  connection,
+  documents,
+  globalSettings,
+  asyncCoordinator,
+  fileMonitor,
+  diagnosticsBuilder,
+  startServer,
+};
