@@ -5,28 +5,28 @@ description: Complete reference for all Newt slash commands with syntax, options
 
 # Newt Commands Reference
 
-Complete reference for all available commands in the Newt plugin.
+Complete reference for all 13 available commands in the Newt plugin.
 
 ## Core Review Commands
 
 ### `/review`
-**Purpose**: Execute comprehensive code review analysis.
+**Purpose**: Full-stack code review via review-orchestrator.
 
 **Syntax**:
 ```
-/review [--path <directory>] [--depth quick|full] [--format markdown|json|summary]
+/review [--path <directory>] [--depth light|balanced|deep] [--lens all|security|architecture|craftsmanship]
 ```
 
 **Options**:
 - `--path <directory>`: Limit analysis to specific directory
-- `--depth quick|full`: Analysis thoroughness (default: quick)
-- `--format markdown|json|summary`: Output format (default: markdown)
+- `--depth light|balanced|deep`: Analysis thoroughness (default: balanced)
+- `--lens all|security|architecture|craftsmanship`: Which lens to apply (default: all)
 
 **Examples**:
 ```bash
-/review --path src/auth --depth quick
-/review --format json
-/review --depth full
+/review --path src/auth --depth light
+/review --lens security
+/review --depth deep --lens architecture
 ```
 
 **Output Sections**:
@@ -35,6 +35,38 @@ Complete reference for all available commands in the Newt plugin.
 - Severity
 - Recommended Fixes
 - Refactored Code Example
+
+---
+
+### `/adversarial-review`
+**Purpose**: Multi-agent adversarial review (GoF, Fowler, Uncle Bob lenses).
+
+**Syntax**:
+```
+/adversarial-review [--path <directory>] [--depth light|balanced|deep] [--lens security|architecture|craftsmanship|all]
+```
+
+**Options**:
+- `--path <directory>`: Limit analysis to specific directory
+- `--depth light|balanced|deep`: Probe depth (default: balanced)
+- `--lens security|architecture|craftsmanship|all`: Lens to apply (default: all)
+
+**Examples**:
+```bash
+/adversarial-review --path src/auth --depth balanced
+/adversarial-review --lens architecture
+/adversarial-review --depth deep
+```
+
+**Output Sections**:
+- Executive Summary
+- Issues Found
+- Security Issues
+- Architecture Issues
+- Code Craftsmanship
+- Recommended Fixes
+- Adversarial Findings
+- Multi-Agent Chain
 
 ---
 
@@ -93,23 +125,24 @@ Complete reference for all available commands in the Newt plugin.
 
 ---
 
-### `/architecture-check`
-**Purpose**: Validate architectural patterns and boundaries.
+### `/architecture`
+**Purpose**: Architecture analyst with DB analyst — GoF pattern violations, Fowler smells, database patterns.
 
 **Syntax**:
 ```
-/architecture-check [--path <directory>] [--pattern <pattern>]
+/architecture [--path <directory>] [--depth light|balanced|deep] [--include-db]
 ```
 
 **Options**:
 - `--path <directory>`: Target module or service
-- `--pattern`: Expected pattern (clean|hexagonal|layered|modular_monolith|microservices)
+- `--depth light|balanced|deep`: Probe depth (default: balanced)
+- `--include-db`: Include database analysis (N+1, indexes, migrations, schema)
 
 **Examples**:
 ```bash
-/architecture-check --path src/billing
-/architecture-check --pattern clean_architecture
-/architecture-check --pattern microservices
+/architecture --path src/billing --depth balanced
+/architecture --include-db --path src/models
+/architecture --pattern clean_architecture
 ```
 
 **Output Sections**:
@@ -117,320 +150,397 @@ Complete reference for all available commands in the Newt plugin.
 - Violations
 - Refactoring Suggestions
 - Pattern Compliance Score
+- Database Findings
 
 ---
 
-## PR Review Commands
+## PR & Code Quality Commands
 
-### `/pr-review`
-**Purpose**: Intelligent PR review with commit planning and PR splitting.
+### `/pr`
+**Purpose**: Unified PR lifecycle: analyze, split, plan, review, communicate.
 
 **Syntax**:
 ```
-/pr-review [--live|--staged|--branch <name>|--massive|--hotfix|--refactor] [--path <directory>]
+/pr <action> [--path <directory>] [--mode staged|branch|massive|hotfix|refactor]
 ```
 
-**Modes**:
-- `--live`: Real-time file monitoring and suggestions
-- `--staged`: Pre-commit validation of staged files
-- `--branch <name>`: Full branch analysis
-- `--massive`: Large PR splitting (100+ commits)
-- `--hotfix`: Fast-track safety review
-- `--refactor`: Architecture change tracking
+**Actions**:
+- `analyze`: Diff analysis, risk categorization, impact assessment
+- `split`: Suggest PR partitions for large changesets
+- `plan`: Build review plan (reviewers, timeline, acceptance criteria)
+- `review`: Run adversarial checks (GoF, Fowler, Uncle Bob)
+- `communicate`: Generate PR description, assign reviewers, notify
 
 **Options**:
-- `--path <directory>`: Limit analysis scope
+- `--path <directory>`: PR diff scope
+- `--mode`: Review mode (default: staged)
 
 **Examples**:
 ```bash
-/pr-review --staged
-/pr-review --branch feature-auth
-/pr-review --massive --path src/billing
-/pr-review --hotfix
-/pr-review --refactor --path src/api
+/pr analyze --path src/auth
+/pr split --mode massive --path src/billing
+/pr plan --reviewers "frontend,backend,security"
+/pr review --depth deep
+/pr communicate
 ```
 
 **Output Sections**:
-- Real-time Suggestions
-- Commit Recommendations
-- PR Planning
-- Risk Assessment
-- Communication Artifacts
+- PR Analysis
+- Suggested Splits
+- Dependencies
+- Review Checklist
+- Communication Draft
 
 ---
 
-## Brainstorming & Ideation Commands
-
-### `/brainstorm`
-**Purpose**: Structured ideation session with decision artifacts.
+### `/design`
+**Purpose**: Unified UI/UX/accessibility review (consolidates component, accessibility, responsive, design-system, UX).
 
 **Syntax**:
 ```
-/brainstorm --mode <type> --topic <text> [--path <directory>] [--frameworks <list>] [--constraints <text>]
-```
-
-**Modes**:
-- `technical`: Architecture, performance, security
-- `product`: Features, UX, experiments
-- `process`: Delivery, DevEx, CI/CD
-- `incident`: Post-incident improvements
-
-**Options**:
-- `--topic`: Problem or opportunity statement
-- `--path`: Relevant code directory
-- `--frameworks`: Override default frameworks (scamper,six_hats,triz,mind_mapping)
-- `--constraints`: Explicit constraints
-
-**Examples**:
-```bash
-/brainstorm --mode technical --topic "Improve authentication system"
-/brainstorm --mode product --topic "Mobile onboarding flow" --path src/mobile
-/brainstorm --mode process --topic "Reduce PR size" --constraints "No breaking changes"
-```
-
-**Output Sections**:
-- Objective
-- Constraints
-- Idea Landscape
-- Clusters
-- Top Candidates
-- Recommendations
-- Decision Artifacts
-
----
-
-### `/converge`
-**Purpose**: Score and select top ideas from a list.
-
-**Syntax**:
-```
-/converge --ideas <text> [--weights <yaml>] [--top <number>]
+/design [--path <directory>] [--wcag-level A|AA|AAA] [--scan "*.tsx,*.jsx,*.vue"]
 ```
 
 **Options**:
-- `--ideas`: Paste or reference idea list
-- `--weights`: Custom scoring weights
-- `--top`: Number of candidates (default: 3)
+- `--path <directory>`: Target UI directory
+- `--wcag-level A|AA|AAA`: Accessibility level (default: AA)
+- `--scan`: File glob pattern (default: all UI files)
 
 **Examples**:
 ```bash
-/converge --ideas "Idea 1\nIdea 2\nIdea 3"
-/converge --ideas <paste ideas> --top 5
+/design --path src/components --wcag-level AA
+/design --scan "*.tsx" --path src/pages
+/design --wcag-level AAA
 ```
 
 **Output Sections**:
-- Scoring Rubric
-- Scored Options
-- Top 3
-- Why Not The Others
+- Component Inventory
+- Accessibility Contract
+- Visual Style Tokens
+- Responsive Breakpoints
+- Implementation Checklist
 
 ---
 
-### `/experiment-brief`
-**Purpose**: Generate testable experiment plan for selected idea.
+### `/security`
+**Purpose**: Unified security detection (OWASP, secrets, policies, vulnerabilities, exploits).
 
 **Syntax**:
 ```
-/experiment-brief --idea <text> [--metrics <text>] [--constraints <text>]
+/security [--path <directory>] [--severity critical|high|medium|low] [--scope all|code|deps|config]
 ```
 
 **Options**:
-- `--idea`: Selected candidate idea
-- `--metrics`: Success metrics
-- `--constraints`: Known constraints
+- `--path <directory>`: Target directory
+- `--severity`: Minimum severity to report (default: high)
+- `--scope`: What to scan (default: all)
 
 **Examples**:
 ```bash
-/experiment-brief --idea "Implement JWT authentication" --metrics "login success rate"
-/experiment-brief --idea "A/B test new checkout flow" --constraints "No database changes"
+/security --path src/auth --severity high
+/security --scope deps --severity critical
+/security --path . --scope all
 ```
 
 **Output Sections**:
-- Hypothesis
-- Experiment Design
-- Instrumentation
-- Rollout Plan
-- Kill Criteria
-- Follow-ups
+- OWASP Mapping
+- Secret Scan Results
+- Policy Violations
+- Vulnerability Findings
+- Exploit Scenarios
+- Remediation Guidance
 
 ---
 
-### `/adr-draft`
-**Purpose**: Draft Architecture Decision Record.
+### `/hooks`
+**Purpose**: Unified hook management (install, execute, monitor, validate git/IDE/CI hooks).
 
 **Syntax**:
 ```
-/adr-draft --decision <text> --options <text> [--constraints <text>]
+/hooks <action> [--hook <name>] [--path <directory>]
+```
+
+**Actions**:
+- `install`: Deploy all hooks to .git/hooks/, CI, IDE
+- `execute <hook>`: Run specific hook manually
+- `status`: Check hook health and execution history
+- `validate`: Validate hook configuration
+- `test <hook>`: Dry-run hook execution
+
+**Examples**:
+```bash
+/hooks install
+/hooks execute pre-commit
+/hooks status
+/hooks validate
+/hooks test pre-push
+```
+
+**Output Sections**:
+- Hook Registry
+- Execution Results
+- Monitoring Dashboard
+- Validation Report
+
+---
+
+### `/suggestions`
+**Purpose**: Real-time IDE suggestions for code improvement, patterns, best practices.
+
+**Syntax**:
+```
+/suggestions <action> [--file <path>] [--severity high|medium|low]
+```
+
+**Actions**:
+- `analyze`: Get suggestions for current file
+- `list`: Show all active suggestions
+- `accept <id>`: Accept specific suggestion
+- `filter`: Filter by severity
+
+**Examples**:
+```bash
+/suggestions analyze --file src/auth/login.ts
+/suggestions list --severity high
+/suggestions accept pattern-123
+```
+
+**Output Sections**:
+- Active Suggestions
+- Pattern Recognition
+- Improvement Opportunities
+- Context-Aware Recommendations
+
+---
+
+### `/dependencies`
+**Purpose**: Supply chain audit: CVEs, licenses, policy compliance, vulnerability assessment.
+
+**Syntax**:
+```
+/dependencies [--path <directory>] [--severity high|medium|low] [--policy <name>]
 ```
 
 **Options**:
-- `--decision`: Chosen approach
-- `--options`: Alternative options considered
-- `--constraints`: Known constraints
+- `--path <directory>`: Project path
+- `--severity`: Minimum vulnerability severity (default: high)
+- `--policy`: Compliance policy to enforce
 
 **Examples**:
 ```bash
-/adr-draft --decision "Use microservices architecture" --options "Monolith, Modular monolith"
-/adr-draft --decision "Adopt PostgreSQL" --options "MySQL, MongoDB" --constraints "Budget limit"
+/dependencies --path . --severity high
+/dependencies --policy enterprise
+/dependencies --severity medium --path src/backend
 ```
 
 **Output Sections**:
-- Context
-- Decision
-- Options Considered
-- Consequences
-- Rollout
-- Links
+- Dependency Inventory
+- CVE Assessment
+- License Compliance
+- Policy Violations
+- Vulnerability Remediation
 
 ---
 
-## Frontend Design (Web UI/UX) Commands
+## Planning & Ideation Commands
 
-### `/ui-design`
-**Purpose**: Create an implementation-ready UI spec (flow, components, tokens, a11y, responsive, performance).
+### `/planning`
+**Purpose**: Ideation → clustering → scoring → deepening → PERT planning (consolidates brainstorm, converge, ADR, experiment).
 
 **Syntax**:
 ```
-/ui-design --goal <text> [--path <directory>] [--page <name>] [--framework <name>] [--style-system <name>] [--component-lib <name>]
+/planning [--path <directory>] [--depth quick|full] [--mode ideate|cluster|score|deepen|pert|assumptions]
 ```
+
+**Options**:
+- `--path <directory>`: Project root for ideation sources
+- `--depth quick|full`: Planning depth (default: full)
+- `--mode`: Pipeline stage to run (default: all)
 
 **Examples**:
 ```bash
-/ui-design --goal "Redesign login screen" --path src/ui
-/ui-design --goal "Improve onboarding flow" --page Onboarding
+/planning --path . --depth full
+/planning --mode ideate --path src
+/planning --mode pert --path .
 ```
+
+**Output Sections**:
+- Ideation Output
+- Clustering Matrix
+- Score Sheet
+- Deepening Plan
+- PERT Timeline
+- Assumptions List
 
 ---
 
-### `/component-review`
-**Purpose**: Review a single component for usability, variants, accessibility, and API design.
+### `/brand`
+**Purpose**: Generate brand strategy + video storyboard, presentation, PDF collateral.
 
 **Syntax**:
 ```
-/component-review --component <name> [--path <directory>] [--variants <list>] [--a11y]
+/brand [--path <directory>] [--depth quick|full] [--audience <role>] [--focus <area>]
 ```
+
+**Options**:
+- `--path <directory>`: Target repo
+- `--depth quick|full`: Questionnaire depth (default: full)
+- `--audience`: Target audience (CTO, VP Engineering, etc.)
+- `--focus`: Focus area (technical, product, competitive)
+
+**Examples**:
+```bash
+/brand --path . --depth full
+/brand --audience "CTO, VP Engineering" --focus enterprise
+/brand --depth quick
+```
+
+**Output Sections**:
+- Brand Strategy Report
+- Video Storyboard
+- Presentation Outline
+- PDF Brief
 
 ---
 
-### `/accessibility-audit`
-**Purpose**: Audit UI code for WCAG issues and provide fixes and tests.
+### `/voice`
+**Purpose**: Capture user voice and inject into all harnesses (Claude Code, Pi, Codex, Windsurf, Cursor).
 
 **Syntax**:
 ```
-/accessibility-audit [--path <directory>] [--wcag A|AA|AAA] [--focus] [--forms] [--aria]
+/voice [--capture|--inject|--test|--refresh] [--harness claudecode|pi|codex|all]
 ```
+
+**Options**:
+- `--capture`: Run 10-question voice questionnaire
+- `--inject`: Update harness configs with profile
+- `--test`: Verify harness integration
+- `--refresh`: Update profile from recent interactions
+- `--harness`: Target harness (default: all)
+
+**Examples**:
+```bash
+/voice --capture
+/voice --inject --harness all
+/voice --test --harness claudecode
+/voice --refresh
+```
+
+**Output Sections**:
+- Voice Profile
+- Harness Config Updates
+- Verification Log
 
 ---
 
-### `/responsive-check`
-**Purpose**: Validate responsive behavior, touch targets, and layout stability.
+### `/triage`
+**Purpose**: Support ticket → code task with blast-radius, priority, escalation.
 
 **Syntax**:
 ```
-/responsive-check [--path <directory>] [--breakpoints <list>] [--touch-targets]
+/triage <ticket-text> [--severity P0|P1|P2|P3] [--project <jira-project>]
 ```
+
+**Options**:
+- `<ticket-text>`: Support ticket content (required)
+- `--severity`: Initial severity estimate
+- `--project`: Jira project key (default: NEWT)
+
+**Examples**:
+```bash
+/triage "User cannot login after password reset" --severity P1
+/triage "API returns 500 on bulk upload" --severity P0 --project OPS
+```
+
+**Output Sections**:
+- Ticket Classification
+- Blast Radius Assessment
+- Priority Scoring
+- Suggested Tasks
+- Escalation Path
+- Jira Integration
 
 ---
 
-### `/design-system`
-**Purpose**: Define or evolve a design system (tokens, components, governance).
+### `/metrics`
+**Purpose**: Retrieve Newt metrics in Prometheus, JSON, or summary format for observability and AI adoption tracking.
 
 **Syntax**:
 ```
-/design-system [--framework <name>] [--style-system <name>] [--tokens] [--components <list>]
+/metrics [--format prometheus|json|summary]
 ```
+
+**Options**:
+- `--format`: Output format (default: prometheus)
+
+**Examples**:
+```bash
+/metrics
+/metrics --format json
+/metrics --format summary
+```
+
+**Metrics Catalog**:
+- `newt_skill_invocations_total{skill,status}` — Counter
+- `newt_skill_duration_seconds{skill}` — Histogram
+- `newt_mcp_tool_calls_total{tool,status}` — Counter
+- `newt_adversarial_reviews_total{lens,severity}` — Counter
+- `newt_adversarial_findings{lens,severity}` — Gauge
+- `newt_ai_adoption_total{event,user_type}` — Counter
+- `newt_commands_total{command,status}` — Counter
+- `newt_command_duration_seconds{command}` — Histogram
+- `newt_uptime_seconds` — Gauge
+- `newt_active_sessions` — Gauge
+
+**Output Sections**:
+- Skill Invocations
+- MCP Tool Calls
+- Adversarial Reviews
+- AI Adoption Events
+- Command Executions
+- System Health
 
 ---
 
-### `/ux-pattern-review`
-**Purpose**: Review UX patterns in a flow for usability and best-practice adherence.
+## Maintenance Commands
+
+### `/refresh-plugin`
+**Purpose**: Refresh plugin after repository updates.
 
 **Syntax**:
 ```
-/ux-pattern-review [--path <directory>] [--flow <name>] [--heuristics nielsen|laws]
+/refresh-plugin [--force]
+```
+
+**Options**:
+- `--force`: Force refresh even if cache is valid
+
+**Examples**:
+```bash
+/refresh-plugin
+/refresh-plugin --force
 ```
 
 ---
 
-## Command Quick Reference
+## Quick Reference Table
 
-| Command | Primary Use Case | Key Options |
-|---------|------------------|-------------|
-| `/review` | Code review | `--path`, `--depth`, `--format` |
-| `/project-health` | Health assessment | `--path`, `--metrics` |
-| `/review-history` | Historical analysis | `--range`, `--limit`, `--filters` |
-| `/architecture-check` | Architecture validation | `--path`, `--pattern` |
-| `/pr-review` | PR automation | `--staged`, `--branch`, `--massive` |
-| `/brainstorm` | Ideation | `--mode`, `--topic`, `--constraints` |
-| `/converge` | Idea selection | `--ideas`, `--top` |
-| `/experiment-brief` | Experiment planning | `--idea`, `--metrics` |
-| `/adr-draft` | Decision documentation | `--decision`, `--options` |
-
-## Common Workflows
-
-### 1. Pre-commit Review
-```bash
-/pr-review --staged
-```
-
-### 2. Feature Ideation → Experiment
-```bash
-/brainstorm --mode product --topic "New feature idea"
-/converge --ideas <paste ideas>
-/experiment-brief --idea <selected idea>
-```
-
-### 3. Architecture Decision
-```bash
-/brainstorm --mode technical --topic "Architecture change"
-/adr-draft --decision <chosen approach> --options <alternatives>
-```
-
-### 4. Large PR Management
-```bash
-/pr-review --massive
-# Follow recommendations to split into smaller PRs
-```
-
-### 5. Project Health Check
-```bash
-/project-health
-/review-history --range 30d
-```
-
-## Tips & Tricks
-
-- **Scoped Analysis**: Use `--path` to focus on specific modules
-- **Quick Reviews**: Use `--depth quick` for faster analysis
-- **Historical Trends**: Use `/review-history` to track improvement over time
-- **PR Planning**: Use `/pr-review --staged` before committing
-- **Decision Making**: Use `/brainstorm` → `/converge` → `/adr-draft` workflow
-- **Experimentation**: Use `/brainstorm` → `/experiment-brief` for data-driven decisions
-
-## Output Formats
-
-### Markdown (Default)
-Human-readable with sections and formatting
-
-### JSON
-Machine-readable for automation and CI/CD integration
-
-### Summary
-Executive overview for stakeholders
-
-## Error Handling
-
-All commands include:
-- Graceful degradation when services unavailable
-- Clear error messages
-- Fallback to cached results when possible
-- Structured error logging to `logs/errors/`
-
-## Configuration
-
-Customize behavior in `config/default.yml`:
-- Review thresholds
-- PR size limits
-- Brainstorming frameworks
-- Scoring weights
-- Integration settings
+| Command | Purpose | Key Options |
+|---------|---------|-------------|
+| `/review` | Full-stack code review | `--path`, `--depth`, `--lens` |
+| `/adversarial-review` | Multi-agent adversarial review | `--path`, `--depth`, `--lens` |
+| `/project-health` | Codebase health score | `--path`, `--metrics` |
+| `/review-history` | Historical review analysis | `--range`, `--limit`, `--filters` |
+| `/architecture` | Architecture + DB analysis | `--path`, `--depth`, `--include-db` |
+| `/pr` | PR lifecycle | `<action>`, `--path`, `--mode` |
+| `/design` | UI/UX/accessibility audit | `--path`, `--wcag-level`, `--scan` |
+| `/security` | Security detection | `--path`, `--severity`, `--scope` |
+| `/hooks` | Hook lifecycle management | `<action>`, `--hook`, `--path` |
+| `/suggestions` | Real-time IDE suggestions | `<action>`, `--file`, `--severity` |
+| `/dependencies` | Supply chain audit | `--path`, `--severity`, `--policy` |
+| `/planning` | Ideation → PERT pipeline | `--path`, `--depth`, `--mode` |
+| `/brand` | Brand strategy + collateral | `--path`, `--depth`, `--audience` |
+| `/voice` | Voice onboarding | `<action>`, `--harness` |
+| `/triage` | Support ticket → code task | `<ticket>`, `--severity`, `--project` |
+| `/metrics` | Observability + AI adoption | `--format` |
+| `/refresh-plugin` | Plugin refresh | `--force` |

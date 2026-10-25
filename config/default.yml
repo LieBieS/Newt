@@ -88,6 +88,26 @@ security:
     medium: 4
     low: 1
 
+  gate:
+    blockOnCritical: true
+    failOnSecrets: true
+    minDependencyScore: 0.8
+    allowedLicenses: [MIT, Apache-2.0, BSD-3-Clause, ISC]
+    blockedCves: []
+    auditLogPath: logs/audit/security-gate.log
+  auth:
+    enabled: true
+    oidcIssuer: ""
+    clientId: "newt-lsp"
+    audience: "newt-api"
+    rolePermissions:
+      admin: [read, write, admin, audit, config]
+      security: [read, write, audit, security]
+      developer: [read, write]
+      auditor: [read, audit]
+      viewer: [read]
+
+
 # Performance budgets
 performance:
   budgets:
@@ -206,6 +226,36 @@ brainstorming:
     risk_inverted: 1.0
     time_to_value: 1.0
     strategic_fit: 1.0
+
+# Adversarial review (GoF + Fowler + Uncle Bob lenses)
+adversarial:
+  enabled: true
+  depth: balanced
+  lens: all
+  goftop:
+    enabled: true
+    depth: balanced
+    excludePatterns: []
+    includeExternal: false
+  probeDepth: deep
+  outputSections:
+    - Executive Summary
+    - Issues Found
+    - Security Issues
+    - Architecture Issues
+    - Code Craftsmanship
+    - Recommended Fixes
+    - Adversarial Findings
+    - Multi-Agent Chain
+
+
+# Enterprise multi-tenant
+multi_tenancy:
+  enabled: false
+  defaultRegion: us-east-1
+  cacheTtlMs: 60000
+  resolveEnvironmentOverrides: true
+
 
   artifacts:
     generate_idea_cards: true

@@ -755,3 +755,77 @@ connection.onCompletion((params) => {
 - ✅ Extensibility (agent adapter pattern)
 
 This architecture is ready for Phase 2 agent integration while remaining solid and maintainable.
+
+---
+
+## Observability Layer (Added)
+
+### Metrics Endpoints
+
+The LSP server exposes three custom request endpoints for observability:
+
+| Endpoint | Method | Response | Use Case |
+|----------|--------|----------|----------|
+| `newt/metrics` | Request | Prometheus format | Prometheus scraping |
+| `newt/health` | Request | JSON health status | Load balancer health checks |
+| `newt/getMetrics` | Request | Raw Prometheus text | CLI/debug access |
+
+### Metrics Registry
+
+The metrics layer (`lsp/metrics/observability.js`) provides:
+
+```javascript
+const { observability, metricsRegistry, recordAiAdoption, recordSkillInvocation,
+  recordMcpToolCall, recordAdversarialReview, recordCommandExecution } = require('./metrics/observability');
+```
+
+**Metric Types:**
+- **Counters**: `newt_skill_invocations_total`, `newt_mcp_tool_calls_total`, `newt_adversarial_reviews_total`, `newt_ai_adoption_total`, `newt_commands_total`
+- **Gauges**: `newt_adversarial_findings`, `newt_uptime_seconds`, `newt_active_sessions`
+- **Histograms**: `newt_skill_duration_seconds`, `newt_command_duration_seconds`
+
+**AI Adoption Events:**
+- `session_start` — New developer session
+- `skill_used` — Skill invocation
+- `command_run` — Command execution
+- `review_completed` — Review finished
+- `adoption_velocity` — Team-level adoption rate
+
+### MCP Resources
+
+The MCP server exposes metrics as resources:
+- `metrics://latest` — Current Prometheus metrics
+- `health://latest` — Current health status
+
+### Prometheus Format Output
+
+```
+# TYPE newt_skill_invocations_total counter
+newt_skill_invocations_total{skill="review",status="success"} 42
+newt_skill_duration_seconds_sum{skill="review"} 12.5
+newt_skill_duration_seconds_count{skill="review"} 42
+# TYPE newt_adversarial_findings gauge
+newt_adversarial_findings{lens="security",severity="high"} 3
+# TYPE newt_ai_adoption_total counter
+newt_ai_adoption_total{event="skill_used",user_type="team"} 15
+```
+
+### Integration Points
+
+| Consumer | Access Method |
+|----------|---------------|
+| Prometheus | Scrape `newt/metrics` via LSP request |
+| Grafana | Dashboard queries against Prometheus |
+| MCP Client | `metrics://latest` resource |
+| CLI | `/metrics --format prometheus` command |
+| Health Checker | `newt/health` request |
+
+### Configuration
+
+```yaml
+metrics:
+  enabled: true
+  prometheus_port: 9090
+  retention_seconds: 3600
+  ai_adoption_tracking: true
+```

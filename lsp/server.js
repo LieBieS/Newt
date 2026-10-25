@@ -156,6 +156,31 @@ connection.onDidChangeConfiguration((change) => {
   }
 });
 
+// Metrics endpoint - Prometheus compatible
+const { observability, metricsRegistry } = require('./metrics/observability');
+
+function handleMetricsRequest() {
+  return metricsRegistry.toPrometheus();
+}
+
+function handleHealthRequest() {
+  return JSON.stringify(observability.getHealth(), null, 2);
+}
+
+// Expose metrics via a custom LSP request (can be called by clients)
+connection.onRequest('newt/metrics', () => {
+  return { format: 'prometheus', data: handleMetricsRequest() };
+});
+
+connection.onRequest('newt/health', () => {
+  return { status: 'ok', data: handleHealthRequest() };
+});
+
+// Also expose via a simple command for CLI access
+connection.onRequest('newt/getMetrics', () => {
+  return metricsRegistry.toPrometheus();
+});
+
 // Function to start the server (called from index.js in production)
 function startServer() {
   documents.listen(connection);

@@ -18,24 +18,15 @@ Newt is a comprehensive AI development assistant plugin. It provides architectur
 | `/project-health` | Holistic codebase health score |
 | `/review-history` | Browse past review logs |
 | `/architecture-check` | Architecture pattern compliance |
-| `/pr-review` | PR diff analysis with commit/split recommendations |
-| `/brainstorm` | Structured ideation with ADR + experiment brief |
-| `/converge` | Score and select top ideas |
-| `/experiment-brief` | Generate experiment design |
-| `/adr-draft` | Generate Architecture Decision Record |
-| `/ui-design` | Frontend UI design specification |
-| `/component-review` | Review UI component quality |
-| `/accessibility-audit` | WCAG compliance audit |
-| `/responsive-check` | Responsive breakpoint analysis |
-| `/design-system` | Design system consistency review |
-| `/ux-pattern-review` | UX pattern analysis |
-| `/hook-install` | Install Git/IDE/CI hooks |
-| `/hook-execute` | Run a specific hook manually |
-| `/hook-list` | List all installed hooks |
-| `/hook-uninstall` | Remove installed hooks |
-| `/hook-status` | Check hook status and health |
-| `/hook-test` | Test hook execution in dry-run mode |
-| `/hook-validate` | Validate hook configuration |
+| `/adversarial-review` | Multi-agent adversarial review (GoF, Fowler, Uncle Bob lenses) |
+| `/design-quality` | Unified UI/UX/accessibility review (consolidates component, accessibility, responsive, design-system, UX) |
+| `/security-guard` | Unified security detection (OWASP, secrets, policies, vulnerabilities, exploits) |
+| `/plan-pipeline` | Ideation → clustering → scoring → deepening → PERT planning (consolidates brainstorm, converge, ADR, experiment) |
+| `/pr-reviewer` | Unified PR lifecycle: analyze, split, plan, review, communicate |
+| `/hook-manager` | Unified hook management: install, execute, monitor, validate |
+| `/support-triage` | Support ticket → code task with blast-radius, priority, escalation |
+| `/voice-onboarding` | Capture user voice and inject into all harnesses |
+| `/brand-marketing` | Generate brand strategy + video, presentation, PDF collateral |
 | `/refresh-plugin` | Refresh plugin after repository updates |
 
 ## Validation

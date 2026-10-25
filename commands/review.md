@@ -18,10 +18,10 @@ Triggers a repository-wide code review that fuses architecture, security, perfor
 2. Run `/review [optional path or pull request identifier]`.
 3. Review the structured output and inspect referenced files.
 
-## Behavior
-- Calls `review-orchestrator`, which sequentially invokes specialized agents and skills.
-- Normalizes severity (Critical/High/Medium/Low) and emits deterministic tables.
-- Logs every run under `logs/reviews/` with timestamped markdown files.
+## Command
+```bash
+/review [optional path or pull request identifier]
+```
 
-## Output Contract
-Always render the mandated sections even when no findings are reported. For empty sections, output `None`.
+## Validation
+Run `npm run validate` to check plugin structural integrity.

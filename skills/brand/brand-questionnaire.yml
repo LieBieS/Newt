@@ -1,0 +1,102 @@
+# Brand Marketing Questionnaire
+# Fill in all required fields (marked with *). Optional fields marked (opt).
+
+# Core Identity
+company_name: ""
+industry: ""
+product_name: ""
+tagline: ""
+
+# Mission & Vision
+mission_statement: ""
+vision_statement: ""
+core_values:                     # 3-5 items
+  - ""
+  - ""
+  - ""
+
+# Unique Value Proposition
+unique_value_proposition: ""
+differentiation: ""
+
+# Target Audience
+primary_audience:
+  role: ""
+  company_size: ""
+  demographics:
+    age_range: ""
+    location: ""
+  psychographics:
+    pain_points:                    # 3-5 items
+      - ""
+      - ""
+      - ""
+    goals:                          # 3-5 items
+      - ""
+      - ""
+    fears:                          # opt
+      - ""
+      - ""
+    motivations:                    # opt
+      - ""
+      - ""
+
+secondary_audiences:              # opt (repeat structure)
+  - role: ""
+    company_size: ""
+    pain_points:
+      - ""
+
+# Brand Archetype
+brand_archetype: ""                 # * (Hero, Sage, Caregiver, Ruler, Creator)
+
+# Positioning
+positioning:
+  price_quality_axis: ""           # Premium / Mid-market / Value
+  innovation_tradition_axis: ""    # Cutting-edge / Established / Hybrid
+  competitor_differentiation:      # 3 competitors + your edge
+    - competitor: ""
+      their_position: ""
+      our_edge: ""
+
+# Visual Identity
+visual_identity:
+  primary_colors:                  # 3 hex codes
+    - "#000000"
+    - "#FFFFFF"
+    - "#0066FF"
+  secondary_colors:                # opt
+    - "#F5F5F5"
+  typography:
+    primary_font: ""               # e.g. Inter, Roboto
+    secondary_font: ""             # opt
+  logo_usage: ""
+
+# Voice & Tone
+voice_tone:
+  primary: ""                       # * (prof, conv, auth, playful)
+  do:                              # opt
+    - ""
+  dont:                            # opt
+    - ""
+
+# Constraints & Requirements
+constraints:
+  compliance:                      # opt (SOC2, HIPAA, GDPR)
+  legal_restrictions:              # opt
+  must_include:                    # opt
+  must_avoid:                      # opt
+  timeline:                        # opt (e.g., launch in 8 weeks)
+  budget_range:                    # opt
+
+# Goals & Success Metrics
+goals:
+  primary:                         # *
+  secondary:                       # opt
+  success_metrics:                 # opt
+    - metric: ""
+      target: ""
+      timeframe: ""
+
+# Additional Context
+additional_notes: ""               # opt

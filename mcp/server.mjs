@@ -37,24 +37,6 @@ function latestFileIn(dirPath, extensions = [".md", ".log", ".json", ".yml", ".y
   return files[0];
 }
 
-function toFileResource(uri, filePath, mimeType = "text/plain") {
-  return {
-    uri,
-    name: uri,
-    mimeType,
-    async read() {
-      return {
-        contents: [
-          {
-            uri,
-            mimeType,
-            text: readTextFile(filePath)
-          }
-        ]
-      };
-    }
-  };
-}
 
 const server = new McpServer({
   name: "newt-mcp-server",
@@ -142,6 +124,26 @@ server.resource(
   }
 );
 
+server.resource(
+  "metrics-latest",
+  "metrics://latest",
+  async () => {
+    const { metricsRegistry } = require('../lsp/metrics/observability');
+    const data = metricsRegistry.toPrometheus();
+    return { contents: [{ uri: "metrics://latest", mimeType: "text/plain", text: data }] };
+  }
+);
+
+server.resource(
+  "health-latest",
+  "health://latest",
+  async () => {
+    const { observability } = require('../lsp/metrics/observability');
+    const data = JSON.stringify(observability.getHealth(), null, 2);
+    return { contents: [{ uri: "health://latest", mimeType: "application/json", text: data }] };
+  }
+);
+
 // --------------------
 // Tools
 // --------------------
@@ -181,7 +183,7 @@ server.tool(
       }
     }
   },
-  async (args) => {
+  async (_args) => {
     const scoped = args?.path ? ` --path ${args.path}` : "";
     const depth = args?.depth ? ` --depth ${args.depth}` : " --depth quick";
     const format = args?.format ? ` --format ${args.format}` : "";
@@ -220,7 +222,7 @@ server.tool(
       }
     }
   },
-  async (args) => {
+  async (_args) => {
     const mode = args?.mode ?? "staged";
     const scoped = args?.path ? ` --path ${args.path}` : "";
     const format = args?.format ? ` --format ${args.format}` : "";
@@ -258,7 +260,7 @@ server.tool(
       required: ["topic"]
     }
   },
-  async (args) => {
+  async (_args) => {
     const mode = args?.mode ?? "technical";
     const pathArg = args?.path ? ` --path ${args.path}` : "";
     const constraintsArg = args?.constraints ? ` --constraints "${args.constraints.replace(/"/g, "\\\"")}"` : "";
@@ -289,7 +291,7 @@ server.tool(
       required: ["ideas"]
     }
   },
-  async (args) => {
+  async (_args) => {
     return toolRunbook({
       title: "Newt Converge",
       steps: [
@@ -315,7 +317,7 @@ server.tool(
       required: ["idea"]
     }
   },
-  async (args) => {
+  async (_args) => {
     const metricsArg = args?.metrics ? ` --metrics "${args.metrics.replace(/"/g, "\\\"")}"` : "";
     const constraintsArg = args?.constraints ? ` --constraints "${args.constraints.replace(/"/g, "\\\"")}"` : "";
 
@@ -344,7 +346,7 @@ server.tool(
       required: ["decision", "options"]
     }
   },
-  async (args) => {
+  async (_args) => {
     const constraintsArg = args?.constraints ? ` --constraints "${args.constraints.replace(/"/g, "\\\"")}"` : "";
 
     return toolRunbook({
@@ -356,6 +358,114 @@ server.tool(
       ],
       outputs: ["ADR sections: context, decision, options, consequences, rollout"]
     });
+  }
+);
+
+
+// Brand marketing MCP tools
+server.tool(
+  "newt_brand_strategy",
+  {
+    description: "Generate a runbook for /brand-marketing (brand strategy generation).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        path: { type: "string", description: "Target repo path" },
+        audience: { type: "string", description: "Target audience" },
+        focus: { type: "string", description: "Focus area" }
+      }
+    }
+  },
+  async (_args) => {
+    return {
+      content: [{
+        type: "text",
+        text: [
+          "# Newt Brand Strategy",
+          "",
+          "## Steps",
+          "- Open your repo in Claude Code, Pi, or Codex.",
+          "- Run `/brand-marketing` (or `/brand` for the new simplified command).",
+          "- Answer the questionnaire to generate strategy.",
+          "- Review outputs in `logs/brand/YYYY-MM-DD/`.",
+          "",
+          "## Expected Output",
+          "- Brand Strategy Report (YAML/JSON)",
+          "- Video Storyboard (Markdown)",
+          "- Presentation Outline (Markdown)",
+          "- PDF Brief (Markdown)"
+        ].join("\n")
+      }]
+    };
+  }
+);
+
+server.tool(
+  "newt_video_storyboard",
+  {
+    description: "Generate a runbook for video storyboard from brand strategy.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        duration: { type: "string", enum: ["30s", "60s", "90s", "120s"], default: "60s" }
+      }
+    }
+  },
+  async (_args) => {
+    const duration = args?.duration ?? "60s";
+    return {
+      content: [{
+        type: "text",
+        text: `# Newt Video Storyboard\n\nSteps: Run /brand-marketing --video --duration ${duration}.\nExpected output: Storyboard with hook, problem, solution, proof, CTA scenes.`
+      }]
+    };
+  }
+);
+
+server.tool(
+  "newt_pdf_brief",
+  {
+    description: "Generate a runbook for PDF brief generation.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        brand_strategy_path: { type: "string" }
+      }
+    }
+  },
+  async (_args) => {
+    return {
+      content: [{
+        type: "text",
+        text: `# Newt PDF Brief\n\nSteps: /brand-marketing --pdf\nExpected output: Executive brief with strategy, recommendations, action items.`
+      }]
+    };
+  }
+);
+
+server.tool(
+  "newt_metrics",
+  {
+    description: "Generate a runbook for retrieving Newt metrics (Prometheus format).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        format: { type: "string", enum: ["prometheus", "json", "summary"], default: "prometheus" }
+      }
+    }
+  },
+  async (_args) => {
+    const format = args?.format ?? "prometheus";
+    return {
+      content: [{
+        type: "text",
+        text: format === "prometheus"
+          ? `# Newt Metrics (Prometheus)\n\nSteps: Run /metrics --format prometheus\nExpected output: Prometheus-format metrics including skill invocations, MCP calls, adversarial reviews, AI adoption events, command executions.`
+          : format === "json"
+            ? `# Newt Metrics (JSON)\n\nSteps: Run /metrics --format json\nExpected output: JSON metrics object with counters, gauges, histograms.`
+            : `# Newt Metrics (Summary)\n\nSteps: Run /metrics --format summary\nExpected output: Human-readable summary of key metrics.`
+      }]
+    };
   }
 );
 

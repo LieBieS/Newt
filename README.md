@@ -337,19 +337,27 @@ Reload plugins when prompted to complete installation.
 
 ---
 
-## 📋 Available Commands
+## 📋 Available Commands (13 Simplified)
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `/review` | Full code review (architecture, security, performance, quality) | `/review src/auth --depth full` |
+| `/review` | Full code review (architecture, security, performance, quality) | `/review src/auth --depth balanced` |
+| `/adversarial-review` | **Multi-agent adversarial review (GoF, Fowler, Uncle Bob lenses)** | `/adversarial-review --path src --depth balanced --lens all` |
 | `/project-health` | Health score with risks and debt areas | `/project-health` |
 | `/review-history` | Summarizes past reviews and recurring issues | `/review-history --limit 5` |
-| `/architecture-check` | Deep structural validation | `/architecture-check services/billing` |
-| `/pr-review` | Reviews changes and suggests commits/PR splits | `/pr-review --staged` |
-| `/brainstorm` | Structured ideation with decision artifacts | `/brainstorm --topic authentication` |
-| `/converge` | Scores and converges ideas to top candidates | `/converge --ideas 10` |
-| `/experiment-brief` | Creates executable experiment plans | `/experiment-brief --idea "OAuth flow"` |
-| `/adr-draft` | Drafts architecture decision records | `/adr-draft --decision "Microservices"` |
+| `/architecture` | Architecture + DB analysis (GoF patterns, Fowler smells) | `/architecture --path src --depth balanced --include-db` |
+| `/pr` | Unified PR lifecycle: analyze, split, plan, review, communicate | `/pr analyze --path src/auth` |
+| `/design` | Unified UI/UX/accessibility audit (WCAG AA) | `/design --path src/components --wcag-level AA` |
+| `/security` | Unified security detection (OWASP, secrets, policies) | `/security --path . --severity high` |
+| `/hooks` | Hook lifecycle management (install, execute, monitor, validate) | `/hooks install` |
+| `/suggestions` | Real-time IDE suggestions for code improvement | `/suggestions analyze --file src/auth/login.ts` |
+| `/dependencies` | Supply chain audit (CVEs, licenses, policy compliance) | `/dependencies --path . --severity high` |
+| `/planning` | Ideation → clustering → scoring → deepening → PERT pipeline | `/planning --path . --depth full` |
+| `/brand` | Brand strategy + video storyboard, presentation, PDF collateral | `/brand --path . --depth full` |
+| `/voice` | Voice onboarding (capture, inject, test, refresh) | `/voice --capture` |
+| `/triage` | Support ticket → code task with blast-radius, priority, escalation | `/triage "User cannot login" --severity P1` |
+| `/metrics` | Observability + AI adoption (Prometheus/JSON/summary) | `/metrics --format prometheus` |
+| `/refresh-plugin` | Refresh plugin after repository updates | `/refresh-plugin --force` |
 
 ---
 
@@ -385,14 +393,22 @@ Reload plugins when prompted to complete installation.
 
 ---
 
-## �️ Skills
+## 🛠️ Skills (12 Canonical)
 
-| Skill | Purpose | Trigger | Language Support |
-|-------|---------|---------|------------------|
-| **detect-god-class** | Flags oversized, multi-responsibility classes | Any code change | TypeScript, Python, Java |
-| **detect-circular-deps** | Cycle detection on dependency graphs | Code changes | JavaScript, Python |
-| **detect-sql-injection** | Scans for concatenation and unbound parameters | SQL code changes | SQL, ORMs |
-| **dependency-audit** | Checks for vulnerable packages | Package file changes | npm, pip, maven |
+| Skill | Purpose | Trigger | Output Contract |
+|-------|---------|---------|-----------------|
+| **review** | Adversarial review orchestrator | review_requested | Executive Summary, Issues, Security, Architecture, Craftsmanship, Fixes, Adversarial Findings, Multi-Agent Chain |
+| **security** | OWASP, secrets, policies, vulnerabilities, exploits | security_scan | OWASP Mapping, Secret Scan, Policy Violations, Vulnerability Findings, Exploit Scenarios, Remediation |
+| **design** | UI/UX/accessibility audit (WCAG AA) | ui_review | Component Inventory, Accessibility Contract, Visual Style Tokens, Responsive Breakpoints, Implementation Checklist |
+| **hooks** | Git/IDE/CI hook lifecycle management | git_commit, ci_pipeline | Hook Registry, Execution Results, Monitoring Dashboard, Validation Report |
+| **planning** | Ideation → clustering → scoring → deepening → PERT pipeline | ideation_completed, planning_requested | Ideation Output, Clustering Matrix, Score Sheet, Deepening Plan, PERT Timeline, Assumptions List |
+| **pr** | Unified PR lifecycle: analyze, split, plan, review, communicate | pr_created, pr_requested | PR Analysis, Suggested Splits, Dependencies, Review Checklist, Communication Draft |
+| **architecture** | GoF pattern violations, Fowler smells, DB analyst | review_requested, architecture_review | Pattern Violations, Architectural Smells, Structural Risks, Refactoring Recommendations, Database Findings |
+| **brand** | Brand strategy + video, presentation, PDF collateral | brand_strategy_requested | Brand Strategy Report, Video Storyboard, Presentation Outline, PDF Brief, Adversarial Findings |
+| **voice** | Voice onboarding (capture, inject, verify) | harness_start, user_profile_updated | Voice Profile, Harness Config Updates, Verification Log |
+| **triage** | Support ticket → code task with blast-radius, priority, escalation | support_ticket_created, bug_reported | Ticket Classification, Blast Radius, Priority Scoring, Suggested Tasks, Escalation Path, Jira Integration |
+| **suggest** | Real-time IDE suggestions | live_suggestions | Active Suggestions, Pattern Recognition, Improvement Opportunities, Context-Aware Recommendations |
+| **dependencies** | Supply chain audit: CVEs, licenses, policy, vulnerabilities | security_scan, code_commit | Dependency Inventory, CVE Assessment, License Compliance, Policy Violations, Vulnerability Remediation |
 
 ---
 

@@ -1,0 +1,50 @@
+# Voice Onboarding Questionnaire
+# Answer all 10 questions. The skill writes results to your harness.
+
+# 1. Tone
+# How do you want agents to communicate with you?
+tone: ""               # formal | conversational | direct | playful | technical
+
+# 2. Vocabulary
+# How should terminology be handled?
+vocabulary_level: ""   # abbreviated | full | technical
+
+# 3. Formatting preference
+# How should structured results be formatted?
+formatting_preference: ""  # table | bullet | paragraph | code-first
+
+# 4. Detail depth
+# How much detail do you want in analysis outputs?
+detail_depth: ""      # quick | balanced | comprehensive
+
+# 5. Examples included
+# Include code samples, links, or analogies in findings?
+examples_included: true
+
+# 6. Error handling style
+# How should tool errors be reported to you?
+error_style: ""       # direct | gentle | suggestive
+
+# 7. Audit transparency
+# Should agent reasoning be visible in output?
+audit_transparency: ""  # show | hide
+
+# 8. Decision style
+# How should recommendations be presented?
+decision_style: ""   # options | recommendation | confirmation
+
+# 9. Language
+# What language should outputs be in?
+language: "en"      # en | bilingual | [other]
+
+# 10. Update frequency
+# Should the profile auto-update from your commands?
+update_mode: ""     # manual | continuous
+
+# Harness mapping (auto-populated by the skill)
+harness_configs:
+  claude_code: ".claude/settings.local.json"
+  pi_agent: "~/.pi/agent-mesh/config.json"
+  codex: "~/.codex/config.json"
+  windsurf: ".vscode/settings.json"
+  cursor: ".cursor/settings.json"

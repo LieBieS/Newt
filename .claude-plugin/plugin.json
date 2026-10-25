@@ -42,7 +42,12 @@
     "mcp-server",
     "design-review",
     "accessibility-audit",
-    "responsive-design-check"
+    "responsive-design-check",
+    "adversarial-review",
+    "enterprise-security",
+    "multi-tenancy",
+    "goftop-pattern-review",
+    "fowler-refactoring"
   ],
   "commandPrefix": "🦎"
 }
